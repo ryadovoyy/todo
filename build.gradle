@@ -1,0 +1,15 @@
+import org.gradle.api.tasks.Exec
+
+tasks.register('assembleAndroid', Exec) {
+    def os = System.getProperty('os.name').toLowerCase()
+    workingDir 'android'
+    if (os.contains('win')) {
+        commandLine 'cmd', '/c', 'gradlew.bat app:assembleDebug'
+    } else {
+        commandLine 'sh', '-c', './gradlew app:assembleDebug'
+    }
+}
+
+tasks.register('build') {
+    dependsOn 'assembleAndroid'
+}
