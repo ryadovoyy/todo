@@ -16,7 +16,8 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
         ErrorResponse errorResponse = new ErrorResponse("Validation errors occurred", HttpStatus.BAD_REQUEST);
 
         ex.getBindingResult().getFieldErrors().forEach(error -> {
-            errorResponse.addValidationError(error.getField(), error.getRejectedValue(), error.getDefaultMessage());
+            errorResponse.addValidationError(
+                    new ValidationError(error.getField(), error.getRejectedValue(), error.getDefaultMessage()));
         });
 
         return createResponseEntity(errorResponse, headers, status, request);

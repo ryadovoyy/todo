@@ -17,10 +17,7 @@ public class ErrorResponse {
         this.status = httpStatus.value();
     }
 
-    public void addValidationError(String field, Object rejectedValue, String message) {
-        errors.add(new ValidationError(field, rejectedValue, message));
-    }
-
-    private record ValidationError(String field, Object rejectedValue, String message) {
+    public void addValidationError(ValidationError validationError) {
+        errors.add(validationError);
     }
 }
